@@ -43,8 +43,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="id"
-        android:inputType="textPersonName"
-        android:text="id" />
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/submit"

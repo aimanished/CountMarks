@@ -81,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (isInserted == true) {
                     Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
-
+                    name.setText("");
+                    surname.setText("");
+                    marks.setText("");
 
                 } else {
                     Toast.makeText(MainActivity.this, "Data not inserted please try again", Toast.LENGTH_LONG).show();
