@@ -47,11 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 Integer deletedRows = mydb.deleteData(id.getText().toString());
                 if(deletedRows > 0){
                     Toast.makeText(MainActivity.this, "Data is deleted",Toast.LENGTH_LONG).show();
-
                 }
                 else{
                     Toast.makeText(MainActivity.this, "Data is not deleted please try again",Toast.LENGTH_LONG).show();
-
                 }
             }
         });
