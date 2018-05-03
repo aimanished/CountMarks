@@ -1,5 +1,6 @@
 package com.example.a16031940.sqlitetester;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mydb = new DatabaseHelper(this);
         name = (EditText) findViewById(R.id.editText);
         surname = (EditText) findViewById(R.id.editText2);
         marks = (EditText) findViewById(R.id.editText3);
@@ -34,26 +34,28 @@ public class MainActivity extends AppCompatActivity {
         update = (Button) findViewById(R.id.update);
         id = (EditText) findViewById(R.id.editText4);
         Delete = (Button) findViewById(R.id.buttonDelete);
+        mydb = new DatabaseHelper(this);
+
         AddData();
         ViewAll();
         updatedata();
-        DeleteData(); 
+
     }
 
-    public void DeleteData(){
-        Delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Integer deletedRows = mydb.deleteData(id.getText().toString());
-                if(deletedRows > 0){
-                    Toast.makeText(MainActivity.this, "Data is deleted",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Data is not deleted please try again",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
+//    public void DeleteData(){
+//        Delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Integer deletedRows = mydb.deleteData(id.getText().toString());
+//                if(deletedRows > 0){
+//                    Toast.makeText(MainActivity.this, "Data is deleted",Toast.LENGTH_LONG).show();
+//                }
+//                else{
+//                    Toast.makeText(MainActivity.this, "Data is not deleted please try again",Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+//    }
 
     public void updatedata(){
         update.setOnClickListener(new View.OnClickListener() {
@@ -75,16 +77,18 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 boolean isInserted = mydb.insertData(name.getText().toString(), surname.getText().toString(), marks.getText().toString());
 
                 if (isInserted == true) {
-                    Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_SHORT).show();
                     name.setText("");
                     surname.setText("");
                     marks.setText("");
+                    id.setText("");
 
                 } else {
-                    Toast.makeText(MainActivity.this, "Data not inserted please try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Data not inserted please try again", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -94,23 +98,26 @@ public class MainActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cursor res = mydb.getAllData();
-                    if (res.getCount() == 0) {
-                        showMessage("Error", "Nothing found");
-                        return;
-                    }
 
-                    StringBuffer buffer = new StringBuffer();
-                    while (res.moveToNext()) {
-                        buffer.append("Id :" + res.getString(0) + "\n");
-                        buffer.append("Name :" + res.getString(1) + "\n");
-                        buffer.append("Surname :" + res.getString(2) + "\n");
-                        buffer.append("Marks :" + res.getString(3) + "\n\n");
-
-                    }
-
-                    // Show all data
-                    showMessage("Data", buffer.toString());
+                    Intent intent = new Intent(MainActivity.this, ViewMarks.class);
+                    startActivity(intent);
+//                    Cursor res = mydb.getAllData();
+//                    if (res.getCount() == 0) {
+//                        showMessage("Error", "Nothing found");
+//                        return;
+//                    }
+//
+//                    StringBuffer buffer = new StringBuffer();
+//                    while (res.moveToNext()) {
+//                        buffer.append("Id :" + res.getString(0) + "\n");
+//                        buffer.append("Name :" + res.getString(1) + "\n");
+//                        buffer.append("Surname :" + res.getString(2) + "\n");
+//                        buffer.append("Marks :" + res.getString(3) + "\n\n");
+//
+//                    }
+//
+//                    // Show all data
+//                    showMessage("Data", buffer.toString());
                 }
             });
 

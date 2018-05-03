@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="marks"
-        android:inputType="text" />
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/editText4"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="id"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <Button
         android:id="@+id/submit"
