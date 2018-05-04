@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         AddData();
         ViewAll();
-        updatedata();
 
     }
 
@@ -57,21 +56,20 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-    public void updatedata(){
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               boolean isUpdated = mydb.updateData(id.getText().toString(), name.getText().toString(), marks.getText().toString(), surname.getText().toString());
-               if(isUpdated == true){
-                   Toast.makeText(MainActivity.this, "Data updated", Toast.LENGTH_LONG).show();
-               }
-               else {
-                   Toast.makeText(MainActivity.this, "Data not updated", Toast.LENGTH_LONG).show();
-
-               }
-            }
-        });
-    }
+//    public void updatedata(){
+//        update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//               boolean isUpdated = mydb.updateData(id.getText().toString(), name.getText().toString(), marks.getText().toString(), surname.getText().toString());
+//               if(isUpdated == true){
+//                   Toast.makeText(MainActivity.this, "Data updated", Toast.LENGTH_LONG).show();
+//               }
+//               else {
+//                   Toast.makeText(MainActivity.this, "Data not updated", Toast.LENGTH_LONG).show();
+//
+//               }
+//            }
+//        });
+//    }
 
     public void AddData() {
         submit.setOnClickListener(new View.OnClickListener() {
