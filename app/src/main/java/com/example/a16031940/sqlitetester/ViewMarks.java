@@ -33,6 +33,7 @@ public class ViewMarks extends AppCompatActivity {
     DatabaseHelper myDb;
     Marks marker;
     Switch switcher;
+    ImageView homePic, refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class ViewMarks extends AppCompatActivity {
         lv = findViewById(R.id.lv);
         marks = new ArrayList<Marks>();
         myDb = new DatabaseHelper(this);
+        homePic = findViewById(R.id.home);
+        refresh = findViewById(R.id.refresh);
         Cursor data = myDb.getAllData();
         switcher = findViewById(R.id.switch1);
         if (data.getCount() == 0) {
@@ -51,7 +54,6 @@ public class ViewMarks extends AppCompatActivity {
             }
             AA = new ViewMarksAdapter(this, R.layout.row, marks);
             lv.setAdapter(AA);
-
         }
 
 
@@ -59,8 +61,9 @@ public class ViewMarks extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int[] info = {position,0};
-
+//                String[] info = {};
+//                info[0] = myDb.getData(position);
+//                Toast.makeText(ViewMarks.this,myDb.getData(4),Toast.LENGTH_LONG).show();
 
                 if (switcher.isChecked() == false) {
 
@@ -74,9 +77,23 @@ public class ViewMarks extends AppCompatActivity {
                     }
                 } else {
                     Intent i = new Intent(ViewMarks.this, Pop.class);
-                    i.putExtra("info",info);
                     startActivity(i);
                 }
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewMarks.this, ViewMarks.class);
+                startActivity(i);
+            }
+        });
+
+        homePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
