@@ -2,6 +2,7 @@ package com.example.a16031940.sqlitetester;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,9 @@ public class MainActivity extends AppCompatActivity {
     EditText id;
     Button submit;
     Button view;
-    Button update;
-    Button Delete;
+    Button email;
+    String messages = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +33,22 @@ public class MainActivity extends AppCompatActivity {
         marks = (EditText) findViewById(R.id.editText3);
         submit = (Button) findViewById(R.id.submit);
         view = (Button) findViewById(R.id.view);
-        update = (Button) findViewById(R.id.update);
+        email = (Button) findViewById(R.id.Email);
         id = (EditText) findViewById(R.id.editText4);
-        Delete = (Button) findViewById(R.id.buttonDelete);
         mydb = new DatabaseHelper(this);
 
         AddData();
         ViewAll();
+        EmailEveryone();
 
+//try
+//        SQLiteDatabase sdb = mydb.getWritableDatabase();
+//        Cursor cursor = sdb.rawQuery("SELECT * FROM students",null);
+//        while(cursor.moveToNext()){
+//            String hello = cursor.getString(0);
+//Toast.makeText(MainActivity.this,cursor.getString(0) , Toast.LENGTH_LONG).show();        }
+
+        //end
     }
 
 //    public void DeleteData(){
@@ -129,5 +139,44 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public void EmailEveryone(){
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get the messages.
+                SQLiteDatabase sdb = mydb.getWritableDatabase();
+                Cursor cursor = sdb.rawQuery("SELECT * FROM students",null);
+                while(cursor.moveToNext()){
+                  messages += "ID : "+  cursor.getString(0) + " \n";
+                    messages += "name : " + cursor.getString(1) + "\n";
+                  messages += "surname : " + cursor.getString(2) + "\n";
+                    messages += "marks : " + cursor.getString(3) + "\n \n";
+                }
+
+
+
+
+                // The action you want this intent to do;
+                // ACTION_SEND is used to indicate sending text
+                Intent emailE = new Intent(Intent.ACTION_SEND);
+                // Put essentials like email address, subject & body text
+                emailE.putExtra(Intent.EXTRA_EMAIL,
+                        new String[]{"@gmail.com"});
+                emailE.putExtra(Intent.EXTRA_SUBJECT,
+                        "Sending Results");
+                emailE.putExtra(Intent.EXTRA_TEXT,
+                messages
+                        );
+                // This MIME type indicates email
+                emailE.setType("message/rfc822");
+                // createChooser shows user a list of app that can handle
+                // this MIME type, which is, email
+                startActivity(Intent.createChooser(emailE,
+                        "Choose an Email client :"));
+
+            }
+        });
     }
 }

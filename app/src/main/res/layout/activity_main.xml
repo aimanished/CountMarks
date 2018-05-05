@@ -53,15 +53,9 @@
         android:text="View " />
 
     <Button
-        android:id="@+id/update"
+        android:id="@+id/Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="update" />
-
-    <Button
-        android:id="@+id/buttonDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete" />
+        android:text="Email " />
 
 </LinearLayout>
